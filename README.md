@@ -1,8 +1,8 @@
 # Yii2 CRM
 
-A simple CRM application built with **PHP**, **Yii2 Advanced**, **MySQL**, and **Docker**.
+A simple CRM application built with PHP, Yii2 Advanced Framework, MySQL, and Docker.
 
-The project was created as a backend practice project to demonstrate CRUD operations, pagination, sorting, Docker environment setup, and Git workflow.
+The project was created to practice backend development and demonstrate CRUD operations, pagination, sorting, Docker-based development, and Git workflow.
 
 ## Features
 
