@@ -1,0 +1,8 @@
+RewriteEngine on
+
+# якщо файл або директорія існує - віддати її
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# інакше відправити запит у Yii
+RewriteRule . index.php
