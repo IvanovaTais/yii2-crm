@@ -47,8 +47,8 @@ The project was created to practice backend development and demonstrate CRUD ope
 ### Clone the repository
 
 ```bash
-git clone <repository-url>
-cd <project-folder>
+git clone https://github.com/IvanovaTais/yii2-crm.git
+cd yii2-crm
 ```
 
 ### Start Docker containers
