@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace common\models;
 
-use Yii;
-use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 
@@ -13,7 +11,7 @@ use yii\db\ActiveRecord;
  * Client model
  *
  * @property int $id
- * @property string $firstname
+ * @property string $first_name
  * @property string $last_name
  * @property string $email
  * @property string|null $phone
@@ -92,16 +90,6 @@ class Client extends ActiveRecord
             'updated_at' => 'Updated At',
         ];
     }
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    // public static function findByUsername(string $username): User|null
-    // {
-    //     return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    // }
 
     /**
      * {@inheritdoc}
@@ -110,7 +98,38 @@ class Client extends ActiveRecord
     {
         return $this->getPrimaryKey();
     }
+    
+    /**
+     * Returns the full name of the client.
+     *
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function fields(): array
+    {
+        $fields = parent::fields();
+
+        unset($fields['created_at']);
+        unset($fields['updated_at']);
+
+        $fields['full_name'] = function() {
+            return $this->fullName;
+        };
+        return $fields;
+    }
  
+    /**
+     * Returns a list of status labels.
+     *
+     * @return array
+     */
     public static function statusList(): array
     {
         return [
@@ -119,6 +138,11 @@ class Client extends ActiveRecord
         ];
     }
 
+    /**
+     * Returns the label for the current status.
+     *
+     * @return string
+     */
     public function getStatusLabel(): string
     {
         return self::statusList()[$this->status] ?? 'Unknown';

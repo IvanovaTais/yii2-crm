@@ -42,7 +42,7 @@ $this->title = 'Clients List';
                 'attribute' => 'birth_date',
                 'format' => ['date', 'php:Y-m-d']
             ],            
-            'notes:text',
+            'notes:ntext',
             [
                 'attribute' => 'status',
                 'value' => function ($model) {
