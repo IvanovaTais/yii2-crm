@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace backend\modules\api\controllers;
 
+use Yii;
 use yii\rest\ActiveController;
 use yii\data\ActiveDataProvider;
 use yii\data\ActiveDataFilter;
+use yii\web\BadRequestHttpException;
 use common\models\Client;
 use common\models\ClientFilter;
 
@@ -29,11 +31,11 @@ class ClientController extends ActiveController
             'searchModel' => ClientFilter::class,
         ]);
 
-        if ($filter->load(\Yii::$app->request->get())) {
+        if ($filter->load(Yii::$app->request->get())) {
             $condition = $filter->build();
 
             if ($condition === false) {
-                throw new \yii\web\BadRequestHttpException(
+                throw new BadRequestHttpException(
                     implode(' ', $filter->getErrors('filter'))
                 );
             }

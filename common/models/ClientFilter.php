@@ -9,16 +9,18 @@ use common\models\Client;
 
 class ClientFilter extends Model
 {
-    public ?string $first_name = null;
-    public ?string $last_name = null;
-    public ?string $email = null;
-    public ?string $phone = null;
-    public ?string $birth_date = null;
-    public ?int $status = null;
+    public $id;
+    public $first_name;
+    public $last_name;
+    public $email;
+    public $phone;
+    public $birth_date;
+    public $status;
 
     public function rules(): array
     {
         return [
+            [['id', 'status'], 'integer'],
             [['first_name', 'last_name', 'email', 'phone'], 'string'],
             ['birth_date', 'date', 'format' => 'php:Y-m-d'],
             ['status', 'in', 'range' => array_keys(Client::statusList())],
