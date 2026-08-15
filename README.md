@@ -2,18 +2,20 @@
 
 A simple CRM application built with PHP, Yii2 Advanced Framework, MySQL, and Docker.
 
-The project was created to practice backend development and demonstrate CRUD operations, pagination, sorting, Docker-based development, and Git workflow.
-
 ## Features
 
-- Client management (Create, Read, Update, Delete)
-- Client details page
-- Pagination
-- Column sorting
-- Form validation
+- Client management (CRUD)
+- Pagination for clients
+- Sorting for clients
+- Client form validation
 - Flash messages
-- Test data generation with Faker
-- Docker-based development environment
+- REST API for clients
+- API pagination, sorting, and filtering
+- Client–Order relationships
+- Foreign key constraints
+- Cascade deletion of client orders
+- Faker-based test data generation
+- Dockerized development environment
 
 ## Tech Stack
 
@@ -22,24 +24,81 @@ The project was created to practice backend development and demonstrate CRUD ope
 - MySQL
 - Docker & Docker Compose
 - Bootstrap 5
+- REST API
+- Faker
 - Git
+
+## Project Structure
+
+The project is based on the Yii2 Advanced Application Template.
+
+- `backend/` — web application and REST API
+- `common/` — shared models and components
+- `console/` — console commands and data generators
+- `frontend/` — frontend application
+
+## REST API
+
+The project provides a REST API for working with clients.
+
+### Clients
+
+```http
+GET /api/client
+```
+
+Supported features:
+
+    Pagination
+    Sorting
+    Filtering
+
+Example:
+```http
+GET /api/client?page=1&per-page=10
+GET /api/client?sort=-created_at
+GET /api/client?filter[id][gt]=15
+```
+
+## Test Data Generation
+
+Faker is used to generate test clients and orders.
+
+Generate clients:
+```php
+php yii client/generate
+```
+
+Generate orders:
+```php
+php yii client-order/generate
+```
+
+A custom number of records can be specified:
+```php
+php yii client/generate 100
+php yii client-order/generate 500
+```
+
+## Database
+
+The application uses MySQL 8.
+
+Main entities:
+
+- `Client`
+- `ClientOrder`
+
+A client can have multiple orders.
+
+`client_order.client_id` references `client.id` with `ON DELETE CASCADE`.
 
 ## Project Status
 
-### Completed
-
-- ✅ Client CRUD
-- ✅ Pagination
-- ✅ Sorting
-- ✅ Console command for generating fake clients
-- ✅ Docker configuration
-- ✅ Git feature branch workflow
-
 ### Planned
 
-- ⏳ REST API
-- ⏳ API validation
-- ⏳ Authentication
+- ⏳ Order CRUD
+- ⏳ Authentication for REST API
 - ⏳ OpenAPI / Swagger documentation
 
 ## Installation
