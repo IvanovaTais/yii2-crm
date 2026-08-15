@@ -5,8 +5,9 @@ A simple CRM application built with PHP, Yii2 Advanced Framework, MySQL, and Doc
 ## Features
 
 - Client management (CRUD)
-- Pagination for clients
-- Sorting for clients
+- Pagination
+- Sorting
+- Filtering
 - Client form validation
 - Flash messages
 - REST API for clients
@@ -58,6 +59,7 @@ Example:
 GET /api/client?page=1&per-page=10
 GET /api/client?sort=-created_at
 GET /api/client?filter[id][gt]=15
+GET /api/client?filter[first_name][like]=Padukirum&filter[status]=0
 ```
 
 ## Test Data Generation
