@@ -1,5 +1,6 @@
 <?php
 /** @var yii\data\ActiveDataProvider $dataProvider */
+/** @var common\models\ClientFilter $filterModel */
 
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -26,6 +27,7 @@ $this->title = 'Clients List';
 
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $filterModel,
         'pager' => [
             'class' => LinkPager::class,
         ],
@@ -57,6 +59,7 @@ $this->title = 'Clients List';
                     );
                 },
                 'format' => 'raw',
+                'filter' => Client::statusList(),
             ],   
             'created_at:datetime',
             [

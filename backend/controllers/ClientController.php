@@ -11,6 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\helpers\Url;
 use common\models\Client;
+use common\models\ClientFilter;
 
 /**
  * Client controller
@@ -25,8 +26,24 @@ class ClientController extends Controller
     public function actionIndex(): string
     {
         Url::remember('', 'client-index');
+
+        $filterModel = new ClientFilter();
+
+        $query = Client::find();
+
+        if ($filterModel->load(Yii::$app->request->get()) && $filterModel->validate()) {
+            $query
+                ->andFilterWhere(['id' => $filterModel->id])
+                ->andFilterWhere(['status' => $filterModel->status])
+                ->andFilterWhere(['like', 'first_name', $filterModel->first_name])
+                ->andFilterWhere(['like', 'last_name', $filterModel->last_name])
+                ->andFilterWhere(['like', 'email', $filterModel->email])
+                ->andFilterWhere(['like', 'phone', $filterModel->phone])
+                ->andFilterWhere(['birth_date' => $filterModel->birth_date]);
+        }
+
         $dataProvider = new ActiveDataProvider([
-            'query' => Client::find(),
+            'query' => $query,
             'sort' => [
                 'defaultOrder' => [
                     'created_at' => SORT_DESC,
@@ -35,7 +52,8 @@ class ClientController extends Controller
         ]);
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+           'dataProvider' => $dataProvider,
+            'filterModel' => $filterModel,
         ]);
     }
 
