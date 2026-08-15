@@ -49,9 +49,9 @@ GET /api/client
 
 Supported features:
 
-    Pagination
-    Sorting
-    Filtering
+- Pagination
+- Sorting
+- Filtering
 
 Example:
 ```http
@@ -140,4 +140,4 @@ Coming soon.
 
 ## Author
 
-Developed as a learning project to improve backend development skills with Yii2, Docker, and modern PHP.
+Developed as a backend practice project focused on Yii2, REST API design, database relationships, validation, Docker, and modern PHP.
