@@ -21,7 +21,7 @@ class ClientFilter extends Model
     {
         return [
             [['id', 'status'], 'integer'],
-            [['first_name', 'last_name', 'email', 'phone'], 'string'],
+            [['first_name', 'last_name', 'email', 'phone'], 'string', 'max' => 255],
             ['birth_date', 'date', 'format' => 'php:Y-m-d'],
             ['status', 'in', 'range' => array_keys(Client::statusList())],
         ];
