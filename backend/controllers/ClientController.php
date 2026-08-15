@@ -7,10 +7,10 @@ namespace backend\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\data\ActiveDataProvider;
-use common\models\Client;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\helpers\Url;
+use common\models\Client;
 
 /**
  * Client controller
@@ -48,7 +48,14 @@ class ClientController extends Controller
      */
     public function actionView(int $id): string
     {
-        $model = $this->findModel($id);
+        $model = Client::find()
+            ->with('orders')
+            ->where(['id' => $id])
+            ->one();
+
+        if ($model === null) {
+            throw new NotFoundHttpException('The requested client does not exist.');
+        }
 
         return $this->render('view', [
             'model' => $model,
@@ -101,7 +108,7 @@ class ClientController extends Controller
                     $model->last_name
                 )
             );
-            
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -153,5 +160,4 @@ class ClientController extends Controller
 
         return $model;
     }
-
 }

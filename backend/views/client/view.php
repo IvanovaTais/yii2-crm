@@ -16,8 +16,8 @@ $this->title = 'Client: #' . $model->id . ' - ' . $model->first_name . ' ' . $mo
         <?= Html::a('Back', Url::previous('client-index') ?: ['index'], ['class' => 'btn btn-outline-secondary']) ?>
     </div>
     <div class="d-flex gap-2">
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Update Client Info', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete Client', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -39,3 +39,35 @@ $this->title = 'Client: #' . $model->id . ' - ' . $model->first_name . ' ' . $mo
         'notes:ntext',
     ],
 ]) ?>
+
+<h3 class="mt-4">Orders</h3>
+
+<?php if ($model->orders): ?>
+
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <?php foreach ($model->orders as $order): ?>
+            <tr>
+                <td><?= Html::encode($order->id) ?></td>
+                <td><?= Html::encode(Yii::$app->formatter->asDatetime($order->order_date)) ?></td>
+                <td><?= Html::encode($order->total_amount) ?></td>
+                <td><?= Html::encode($order->statusLabel) ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+<?php else: ?>
+
+    <p class="text-muted">This client has no orders yet.</p>
+
+<?php endif; ?>

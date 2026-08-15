@@ -6,6 +6,8 @@ namespace common\models;
 
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\db\ActiveQuery;
+use common\models\ClientOrder;
 
 /**
  * Client model
@@ -146,6 +148,16 @@ class Client extends ActiveRecord
     public function getStatusLabel(): string
     {
         return self::statusList()[$this->status] ?? 'Unknown';
+    }
+
+    /**
+     * Returns the client's orders.
+     *
+     * @return ActiveQuery
+     */
+    public function getOrders(): ActiveQuery
+    {
+        return $this->hasMany(ClientOrder::class, ['client_id' => 'id']);
     }
 
 }
